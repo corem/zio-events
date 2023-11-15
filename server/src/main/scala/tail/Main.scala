@@ -1,12 +1,14 @@
-import tailconfig.TailConfig
-import consumer.{TailConsumer, TailConsumerImpl}
-import server.{Server, ServerImpl}
-import buffer.{Buffer, BufferImpl}
-import broadcast.{Broadcast, BroadcastImpl}
+package tail
+
 import zio.*
 import zio.config.*
 import zio.config.typesafe.*
 import zio.stream.ZSink
+import tailconfig.*
+import consumer.*
+import server.*
+import broadcast.*
+import buffer.*
 
 object Main extends ZIOAppDefault {
 
