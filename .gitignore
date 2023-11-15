@@ -15,7 +15,12 @@ src_managed/
 project/boot/
 project/plugins/project/
 
-.idea*
+# intellij idea
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
 
 # Metals
 .metals/
@@ -26,3 +31,4 @@ metals.sbt
 
 # Scala
 .scalafmt.conf
+.tasty

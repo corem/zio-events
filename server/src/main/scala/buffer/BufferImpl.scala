@@ -1,20 +1,7 @@
-package model
+package buffer
 
-import zio.*
-
-trait Buffer {
-  def offer(message: Message): UIO[Unit]
-
-  def poll(): UIO[Option[Message]]
-}
-
-object Buffer {
-  def offer(message: Message): UIO[Buffer, Unit] =
-    ZIO.serviceWithZIO[Buffer](_.offer(message))
-
-  def poll(): URIO[Buffer, Option[Message]] =
-    ZIO.serviceWithZIO[Buffer](_.poll())
-}
+import message.Message
+import zio.{Queue, UIO, ULayer, ZIO, ZLayer}
 
 final case class BufferImpl(queue: Queue[Message]) extends Buffer {
   override def offer(message: Message): UIO[Unit] =
@@ -27,5 +14,3 @@ object BufferImpl {
   val live: ULayer[Buffer] =
     ZLayer(Queue.unbounded[Message].map(BufferImpl(_)))
 }
-
-

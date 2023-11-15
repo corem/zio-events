@@ -1,14 +1,22 @@
-ThisBuild / scalaVersion     := "3.3.0"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
-ThisBuild / organizationName := "example"
+ThisBuild / scalaVersion := "3.3.0"
+ThisBuild / version := "0.1.0-SNAPSHOT"
 
-lazy val root = (project in file("."))
+ThisBuild / scalacOptions ++=
+  Seq(
+    "-source:future",
+    "-deprecation"
+  )
+
+lazy val server = (project in file("server"))
+  .configs(IntegrationTest)
   .settings(
-    name := "zio-events",
-    libraryDependencies ++= Seq(
-      "dev.zio" %% "zio" % "2.0.19",
-      "dev.zio" %% "zio-test" % "2.0.19" % Test
-    ),
+    name := "tail",
+    libraryDependencies ++= Dependencies.all,
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+  )
+
+lazy val producer = (project in file("producer"))
+  .settings(
+    name := "producer",
+    libraryDependencies ++= Dependencies.all
   )
